@@ -13,22 +13,32 @@ import com.ggantycc.ctictactoe.model.TicTacToeModel
 class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var paintBackground: Paint = Paint()
-    private var paintLine: Paint = Paint()
+    private var gridPaintLine: Paint = Paint()
+    private var circlePaintLine: Paint = Paint()
+    private var crossPaintLine: Paint = Paint()
 
 //    var x = -1
 //    var y = -1
 
-    //HÁZI: reset / megérteni a kirajzolást / next player is szöveg helyesbítése
+    //HÁZI: reset / next player is szöveg helyesbítése
     //HÁZI: győzelem? döntetlen? (ide checkWinner a mátrixból) minden egyes lépés után
-    //HÁZI: különböző O és X színek használata / előmenü készítése a játékhoz
+    //HÁZI: előmenü készítése a játékhoz
 
     init {
         paintBackground.color = Color.BLACK
         paintBackground.style = Paint.Style.FILL
 
-        paintLine.color = Color.WHITE
-        paintLine.style = Paint.Style.STROKE
-        paintLine.strokeWidth = 5f
+        gridPaintLine.color = Color.WHITE
+        gridPaintLine.style = Paint.Style.STROKE
+        gridPaintLine.strokeWidth = 5f
+
+        circlePaintLine.color = Color.GREEN
+        circlePaintLine.style = Paint.Style.STROKE
+        circlePaintLine.strokeWidth = 25f
+
+        crossPaintLine.color = Color.RED
+        crossPaintLine.style = Paint.Style.STROKE
+        crossPaintLine.strokeWidth = 25f
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -45,14 +55,14 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
 
     private fun drawGameArea(canvas: Canvas) {
         //border
-        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paintLine)
+        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), gridPaintLine)
         //two horizontal lines
-        canvas.drawLine(0f, (height / 3).toFloat(), width.toFloat(), (height / 3).toFloat(), paintLine)
-        canvas.drawLine(0f, (2 * height / 3).toFloat(), width.toFloat(), (2 * height / 3).toFloat(), paintLine)
+        canvas.drawLine(0f, (height / 3).toFloat(), width.toFloat(), (height / 3).toFloat(), gridPaintLine)
+        canvas.drawLine(0f, (2 * height / 3).toFloat(), width.toFloat(), (2 * height / 3).toFloat(), gridPaintLine)
 
         //two vertical lines
-        canvas.drawLine((width / 3).toFloat(), 0f, (width / 3).toFloat(), height.toFloat(), paintLine)
-        canvas.drawLine((2 * width / 3).toFloat(), 0f, (2 * width / 3).toFloat(), height.toFloat(), paintLine)
+        canvas.drawLine((width / 3).toFloat(), 0f, (width / 3).toFloat(), height.toFloat(), gridPaintLine)
+        canvas.drawLine((2 * width / 3).toFloat(), 0f, (2 * width / 3).toFloat(), height.toFloat(), gridPaintLine)
     }
 
     private fun drawPlayers(canvas: Canvas) {
@@ -63,14 +73,14 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
                     val centerY = (j * height / 3 + width / 6).toFloat()
                     val radius = height / 6 - 2
 
-                    canvas.drawCircle(centerX, centerY, radius.toFloat(), paintLine)
+                    canvas.drawCircle(centerX, centerY, radius.toFloat(), circlePaintLine)
                 } else if (TicTacToeModel.getFieldContent(i, j) == TicTacToeModel.CROSS) {
                     canvas.drawLine((i * width / 3).toFloat(), (j * height / 3).toFloat(),
                         ((i + 1) * width / 3).toFloat(),
-                        ((j + 1) * height / 3).toFloat(), paintLine)
+                        ((j + 1) * height / 3).toFloat(), crossPaintLine)
 
                     canvas.drawLine(((i + 1) * width / 3).toFloat(), (j * height / 3).toFloat(),
-                        (i * width / 3).toFloat(), ((j + 1) * height / 3).toFloat(), paintLine)
+                        (i * width / 3).toFloat(), ((j + 1) * height / 3).toFloat(), crossPaintLine)
                 }
             }
         }
