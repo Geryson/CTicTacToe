@@ -9,29 +9,33 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello TicTacToe!"/>
+        android:gravity="center"
+        android:text="Hello TicTacToe!" />
 
     <com.ggantycc.ctictactoe.view.TicTacToeView
         android:id="@+id/ticView"
         android:layout_width="300dp"
-        android:layout_height="300dp">
+        android:layout_height="300dp"
+        android:layout_gravity="center">
 
     </com.ggantycc.ctictactoe.view.TicTacToeView>
 
     <TextView
         android:id="@+id/tvData"
-        android:textSize="24sp"
-        android:textColor="#0033EC"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="First player is: O"/>
+        android:gravity="center"
+        android:text="First player is: O"
+        android:textColor="#0033EC"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/btnReset"
         android:text="Reset"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </LinearLayout>

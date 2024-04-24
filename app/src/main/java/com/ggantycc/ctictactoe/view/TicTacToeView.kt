@@ -22,8 +22,6 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
 //    var x = -1
 //    var y = -1
 
-    //HÁZI: előmenü készítése a játékhoz
-
     init {
         paintBackground.color = Color.BLACK
         paintBackground.style = Paint.Style.FILL
