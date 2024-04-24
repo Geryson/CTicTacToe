@@ -17,11 +17,11 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
     private var circlePaintLine: Paint = Paint()
     private var crossPaintLine: Paint = Paint()
 
+    private var touchable: Boolean = true
+
 //    var x = -1
 //    var y = -1
 
-    //HÁZI: reset / next player is szöveg helyesbítése
-    //HÁZI: győzelem? döntetlen? (ide checkWinner a mátrixból) minden egyes lépés után
     //HÁZI: előmenü készítése a játékhoz
 
     init {
@@ -92,26 +92,38 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
 //
 //        invalidate() //onDraw újra meghívódik emiatt
 
-        if (event.action == MotionEvent.ACTION_DOWN) {
+        if (event.action == MotionEvent.ACTION_DOWN && touchable) {
             val tX = event.x.toInt() / (width / 3)
             val tY = event.y.toInt() / (height/ 3)
 
             if (tX < 3 && tY < 3 && TicTacToeModel.getFieldContent(tX, tY) == TicTacToeModel.EMPTY) {
                 TicTacToeModel.setFieldContent(tX, tY, TicTacToeModel.getNextPlayer())
 
-                //itt vizsgálni, hogy van-e győztes...
-
-                TicTacToeModel.changeNextPlayer()
-
-                var next = "O"
-
-                if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) {
-                    next = "X"
-                }
-
-                (context as MainActivity).showText("Next player is: $next")
-
                 invalidate()
+
+                //itt vizsgálni, hogy van-e győztes...
+                if (TicTacToeModel.checkWinner()) {
+                    touchable = false
+
+                    var next = "O"
+
+                    if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) {
+                        next = "X"
+                    }
+
+                    (context as MainActivity).showText("Winner is: $next!")
+                } else if (TicTacToeModel.checkTie()) {
+                    (context as MainActivity).showText("It's a draw. No winner!")
+                } else {
+                    TicTacToeModel.changeNextPlayer()
+
+                    var next = "O"
+
+                    if (TicTacToeModel.getNextPlayer() == TicTacToeModel.CROSS) {
+                        next = "X"
+                    }
+                    (context as MainActivity).showText("Next player is: $next")
+                }
             }
         }
 
@@ -120,6 +132,8 @@ class TicTacToeView(context: Context?, attrs: AttributeSet?) : View(context, att
 
     public fun resetGame() {
         TicTacToeModel.resetModel()
+        (context as MainActivity).showText("First player is: O")
+        touchable = true
         invalidate()
     }
 

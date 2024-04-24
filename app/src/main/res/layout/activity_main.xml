@@ -26,7 +26,7 @@
         android:textColor="#0033EC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="O is the next"/>
+        android:text="First player is: O"/>
 
     <Button
         android:id="@+id/btnReset"
